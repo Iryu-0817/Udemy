@@ -1,9 +1,6 @@
-import { hello, User } from "./module.js"; 
+import functionB, { hello, User } from "./module.js";
 
-// export default の場合だと{}はつけなくていい
-import funcB from "./module.js";
+functionB();
 hello();
-funcB();
-
-const user = new User ('Tom');
+const user = new User('Tom');
 user.hello();

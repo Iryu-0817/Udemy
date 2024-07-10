@@ -1,14 +1,16 @@
 function fn(number) {
-  // 関数の実行結果が返ってくる。
   return number * 2;
 }
 
-console.log(fn(4));
+console.log(fn(2)); // 4
 
-const fnArrow = number => {
-  return number * 2;
+const fnArrow = (number) => {
+ return number * 2;
 }
 
+console.log(fnArrow(2)); // 4
 
 
-console.log(fnArrow(2));
+const fnArrowObj = number => ({ result: number * 2 });
+
+console.log(fnArrowObj(2)); // { result: 4 }
