@@ -20,7 +20,7 @@ const Example = () => {
             return isMatch;
           })
           .map((animal) => (
-            <li key={animal}>{animal}</li>
+            <li key={animal}>{animal === "Dog" ? animal + "⭐️" : ""}</li>
           ))}
       </ul>
     </>
