@@ -1,13 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
+
+func foo(params ...int) {
+    fmt.Println(len(params), params)
+    for _, param := range params{
+        fmt.Println(param)
+    }
+}
 
 func main() {
-    b := []byte{72, 73}
-    fmt.Println(b)
-    fmt.Println(string(b))
+    foo()
+    foo(10, 20)
+    foo(10, 20, 30)
 
-    c := []byte("HI")
-    fmt.Println(c)
-    fmt.Println(string(c))
+    s := []int{1, 2 ,3}
+    fmt.Println(s)
+
+    foo(s...)
 }
