@@ -1,15 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 func main() {
-    defer fmt.Println("後で実行されます")
-    fmt.Println("最初に実行されます")
+    log.Println("Logging!")
+    log.Printf("%T %v", "test", "test")
 
-    //実行される順番に注意  
-    fmt.Println("run")
-    defer fmt.Println(1)
-    defer fmt.Println(2)
-    defer fmt.Println(3)
-    fmt.Println("success")
+    // ここでコードの実行が終了する。　
+    log.Fatalf("%T %v", "test", "test")
+    log.Fatalln("Error!!")
+
+    fmt.Println("ok!")
 }
