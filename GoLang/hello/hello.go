@@ -1,27 +1,21 @@
 package main
 
-import (
-	"fmt"
-	"log"
-	"os"
-)
+import "fmt"
+
+func one(x *int) {
+	*x = 1
+}
 
 func main() {
-    file, err := os.Open("./hello.go")
-    if err != nil{
-        log.Fatalln("Error!")
-    }
+	var n int = 100
+	one(&n)
+	fmt.Println(n)
 
-    defer file.Close()
-    data := make([]byte, 100)
-    // ここでerr:=できるのは、左の要素が変わったからである。詳しくは自分で調べてみて
-    count, err := file.Read(data)
-    if err != nil {
-        log.Fatalln("Error")
-    }
-    fmt.Println(count, string(data))
+	fmt.Println(&n)
 
-    if err = os.Chdir("test"); err != nil{
-        log.Fatalln("Error")
-    }
+	var p *int = &n
+
+	fmt.Println(p)
+
+	fmt.Println(*p)
 }
