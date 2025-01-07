@@ -1,23 +1,26 @@
 package main
 
-import (
-	"fmt"
-	"strconv"
-)
+import "fmt"
 
 func main() {
-	var x int = 1
-	xx := float64(x)
-	fmt.Printf("%T %v %f\n", xx, xx, xx)
+    n := []int{1, 2, 3, 4, 5, 6}
+    fmt.Println(n)
+    fmt.Println(n[2])
+    fmt.Println(n[2:4])
+    fmt.Println(n[:2])
+    fmt.Println(n[2:])
+    fmt.Println(n[:])
 
-	var y float64 = 1.2
-	yy := int(y)
-	fmt.Printf("%T %v %d\n", yy, yy, yy)
+    n[2] = 100
+    fmt.Println(n)
 
-	var s string = "14"
-	i, _ := strconv.Atoi(s)
-	fmt.Printf("%T %v\n", i, i)
+    var board = [][]int{
+        []int{0, 1, 2},
+        []int{3, 4, 5},
+        []int{6, 7, 8},
+    }
+    fmt.Println(board)
 
-	h := "Hello World"
-	fmt.Println(string(h[0]))
+    n = append(n, 100, 200, 300, 500)
+    fmt.Println(n)
 }
