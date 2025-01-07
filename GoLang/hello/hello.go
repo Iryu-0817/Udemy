@@ -3,15 +3,25 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 )
 
 func main() {
-    log.Println("Logging!")
-    log.Printf("%T %v", "test", "test")
+    file, err := os.Open("./hello.go")
+    if err != nil{
+        log.Fatalln("Error!")
+    }
 
-    // ここでコードの実行が終了する。　
-    log.Fatalf("%T %v", "test", "test")
-    log.Fatalln("Error!!")
+    defer file.Close()
+    data := make([]byte, 100)
+    // ここでerr:=できるのは、左の要素が変わったからである。詳しくは自分で調べてみて
+    count, err := file.Read(data)
+    if err != nil {
+        log.Fatalln("Error")
+    }
+    fmt.Println(count, string(data))
 
-    fmt.Println("ok!")
+    if err = os.Chdir("test"); err != nil{
+        log.Fatalln("Error")
+    }
 }
