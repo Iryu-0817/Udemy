@@ -2,31 +2,37 @@ package main
 
 import "fmt"
 
-type Vertex struct {
-	x, y int
+type Human interface {
+	Say() string
 }
 
-func (v Vertex) Area() int {
-	return v.x * v.y
+type Person struct {
+	Name string
 }
 
-func (v *Vertex) Scale(i int) {
-	v.x = v.x * i
-	v.y = v.y * i
+type Dog struct {
+	Name string
 }
 
-//func Area(v Vertex) int {
-//	return v.x * v.y
-//}
+func (p *Person) Say() string {
+	p.Name = "Mr." + p.Name
+	fmt.Println(p.Name)
+	return p.Name
+}
 
-func New(x, y int) *Vertex {
-	return &Vertex{x, y}
+func DriveCar(human Human) {
+	if human.Say() == "Mr.Mike" {
+		fmt.Println("Run")
+	} else {
+		fmt.Println("Get out")
+	}
 }
 
 func main() {
-	// v := Vertex{3, 4}
-	// fmt.Println(Area(v))
-	v := New(3, 4)
-	v.Scale(10)
-	fmt.Println(v.Area())
+	var mike Human = &Person{"Mike"}
+	var x Human = &Person{"X"}
+	DriveCar(mike)
+	DriveCar(x)
+	// var dog Dog = Dog{"dog"}
+	// DriveCar(dog)
 }
