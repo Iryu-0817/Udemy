@@ -12,6 +12,7 @@ func main() {
 	OuterLoop2:
 		for {
 			select {
+			// データを受信したら発火する
 			case <- tick:
 				fmt.Println("tick.")
 			case <- boom:
