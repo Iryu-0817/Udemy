@@ -1,33 +1,31 @@
+/*
+Stringers
+One of the most ubiquitous interfaces is Stringer defined
+by the fmt package.
+
+	type Stringer interface {
+	    String() string
+	}
+
+A Stringer is a type that can describe itself as a string.
+The fmt package (and many others) look for this interface
+to print values.
+*/
 package main
 
 import "fmt"
 
-//　interfaceにどんな値も渡せるため、ここでは型の指定はしなくてもよい。しかし、このコードの中でタイプアサーションをしないといけない。
-func do(i interface{}) {
-	/*
-		ii := i.(int)
-		// i = ii * 2
-		ii *= 2
-		fmt.Println(ii)
-		ss := i.(string)
-		fmt.Println(ss + "!")
-	*/
-	switch v := i.(type) {
-	case int:
-		fmt.Println(v * 2)
-	case string:
-		fmt.Println(v + "!")
-	default:
-		fmt.Printf("I don't know %T\n", v)
-	}
+type Person struct {
+	Name string
+	Age  int
+}
+
+// string()を使うことで、出力方法を変えられる。
+func (p Person) String() string {
+	return fmt.Sprintf("My name is %v.", p.Name)
 }
 
 func main() {
-	do(10)
-	do("Mike")
-	do(true)
-
-	var i int = 10
-	ii := float64(10)
-	fmt.Println(i, ii)
+	mike := Person{"Mike", 22}
+	fmt.Println(mike)
 }
