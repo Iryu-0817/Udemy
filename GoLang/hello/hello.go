@@ -1,31 +1,41 @@
 /*
-Stringers
-One of the most ubiquitous interfaces is Stringer defined
-by the fmt package.
+Go programs express error state with error values.
 
-	type Stringer interface {
-	    String() string
-	}
+The error type is a built-in interface similar to
+fmt.Stringer:
 
-A Stringer is a type that can describe itself as a string.
-The fmt package (and many others) look for this interface
-to print values.
+type error interface {
+    Error() string
+}
 */
+
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-type Person struct {
-	Name string
-	Age  int
+type UserNotFound struct {
+	Username string
 }
 
-// string()を使うことで、出力方法を変えられる。
-func (p Person) String() string {
-	return fmt.Sprintf("My name is %v.", p.Name)
+// カスタムエラーを作る時は＆と＊をつける
+func (e *UserNotFound) Error() string {
+	return fmt.Sprintf("User not found: %v", e.Username)
+}
+
+func myFunc() error {
+	// Something wrong
+	ok := false
+	if ok {
+		return nil
+	}
+	// カスタムエラーを作る時は＆と＊をつける
+	return &UserNotFound{Username: "mike"}
 }
 
 func main() {
-	mike := Person{"Mike", 22}
-	fmt.Println(mike)
+	if err := myFunc(); err != nil {
+		fmt.Println(err)
+	}
 }
