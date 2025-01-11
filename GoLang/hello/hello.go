@@ -2,26 +2,42 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
-func main() {
-	tick := time.Tick(100 * time.Millisecond)
-	boom := time.After(500 * time.Millisecond)
-	// for selectの抜け出し方
-	OuterLoop2:
-		for {
-			select {
-			// データを受信したら発火する
-			case <- tick:
-				fmt.Println("tick.")
-			case <- boom:
-				fmt.Println("Boom!")
-				break OuterLoop2
+type Counter struct {
+	v   map[string]int
+	mux sync.Mutex
+}
 
-			default:
-				fmt.Println("   .")
-				time.Sleep(50 * time.Millisecond)
-			}
+func (c *Counter) Inc(key string) {
+	c.mux.Lock()
+	defer c.mux.Unlock()
+	c.v[key]++
+}
+
+func (c *Counter) Value(key string) int {
+	c.mux.Lock()
+	defer c.mux.Unlock()
+	return c.v[key]
+}
+
+func main() {
+	// c := make(map[string]int)
+	c := Counter{v: make(map[string]int)}
+	go func() {
+		for i := 0; i < 10; i++ {
+			// c["key"] += 1
+			c.Inc("Key")
 		}
+	}()
+	go func() {
+		for i := 0; i < 10; i++ {
+			// c["key"] += 1
+			c.Inc("Key")
+		}
+	}()
+	time.Sleep(1 * time.Second)
+	fmt.Println(c, c.Value("Key"))
 }
